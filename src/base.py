@@ -1,4 +1,3 @@
-import pickle               # Using Pickling
 import pandas as pd
 import quandl, datetime
 import numpy as np
@@ -44,16 +43,10 @@ X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_s
 
 clf = LinearRegression(n_jobs=-1)
 clf.fit(X_train, y_train)                   # Train
-with open('../res/linearregression.pickle','wb') as f:
-    pickle.dump(clf, f)                     # Dump new Classifier to a pickle File / ReTrain
-
-pickle_in = open('../res/linearregression.pickle', 'rb')
-clf = pickle.load(pickle_in)                  # Load from pickle file that contains Classifier
-
 accuracy = clf.score(X_test, y_test)        # Test
 print("Classifier Accuracy = {} ".format(accuracy))
 forecast_set = clf.predict(X_lately)
-# print(forecast_set, forecast_out)
+print(forecast_set, forecast_out)
 df['Forecast'] = np.nan
 
 last_date = df.iloc[-1].name
